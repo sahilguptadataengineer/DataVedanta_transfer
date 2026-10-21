@@ -33,13 +33,13 @@ export function CompanyLogos({ className = "" }: { className?: string }) {
   );
 }
 
-// Fixed row (no movement) for a short list, e.g. "Our trainers come from" on Home and About.
+// Auto-moving row for any list of companies, e.g. "Our trainers come from" on Home and About (pauses on hover).
 export function CompanyRow({ label, companies, className = "" }: { label: string; companies: Company[]; className?: string }) {
   return (
-    <ul aria-label={label} className={`flex flex-wrap gap-3 ${className}`}>
+    <Marquee label={label} seconds={30} className={className}>
       {companies.map((company) => (
         <CompanyBadge key={company.name} company={company} />
       ))}
-    </ul>
+    </Marquee>
   );
 }
