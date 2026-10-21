@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/*
+  Design tokens (new look, client change request 01, 18 Oct 2026). These are the ONLY colours the site can use.
+  `--color-*: initial` switches off Tailwind's built-in palette, so classes like
+  `text-gray-500` or `bg-purple-600` do not exist and cannot sneak into components.
+*/
+@theme {
+  --color-*: initial;
+  --color-petrol: #12394a;
+  --color-coral: #ff6f61;
+  --color-coral-deep: #b23a2f; /* darker than #c5463a so small text passes contrast on light tints (Lighthouse) */
+  --color-white: #ffffff;
+  --color-sand: #dfd0b6;
+  --color-ink: #1c1b1a;
+  --color-muted: #6b665f;
+
+  /* Deep petrol for dark page headers (same colour family as petrol, like the navy in the client's reference). */
+  --color-navy: #0c2733;
+  --color-navy-soft: #153847;
+  /* Very light grey-blue for alternating sections. */
+  --color-mist: #f3f6f9;
+
+  /* Small accents for the program icon tiles only (reference image + point 29 "more colours").
+     The main theme stays petrol + coral. */
+  --color-violet: #5b45c9;
+  --color-emerald: #0b7f5e;
+  --color-sky: #1f5fd6;
+  --color-amber: #a35f00;
+  --color-teal: #0a7480;
+  --color-rose: #c23a5b;
+
+  /* Road of the learning road map: a muted steel blue (not too dark, not too bright). */
+  --color-road: #36597f;
+
+  /* Ratings and WhatsApp. WhatsApp green is dark enough for white text (contrast 5.5:1). */
+  --color-star: #f2a900;
+  --color-whatsapp: #0a7c5c;
+
+  /* Fonts are loaded with next/font in src/app/layout.tsx. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+
+  /* Rounded corners: cards and the hero arch. Buttons use rounded-full (pill). */
+  --radius-card: 1.25rem;
+  --radius-arch: 12rem;
+
+  /* Soft depth, tinted with petrol instead of grey. */
+  --shadow-card: 0 18px 40px -20px rgb(18 57 74 / 0.28);
+  --shadow-chip: 0 12px 32px -12px rgb(18 57 74 / 0.3);
+
+  /* Light sweep across the "Seats left" pill. */
+  --animate-shine: shine 2.6s ease-in-out infinite;
+  @keyframes shine {
+    from {
+      transform: translateX(-150%) skewX(-12deg);
+    }
+    60%,
+    to {
+      transform: translateX(350%) skewX(-12deg);
+    }
+  }
+
+  /* The dashed "road" of the learning roadmap moves slowly forward. */
+  --animate-road: road 2.4s linear infinite;
+  @keyframes road {
+    to {
+      stroke-dashoffset: -40;
+    }
+  }
+
+  /* Logo carousel: one full loop of the list. */
+  --animate-marquee: marquee 35s linear infinite;
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Animations pause while off-screen; src/components/AnimationsInView.tsx adds data-inview when visible. */
+.pause-offscreen:not([data-inview]),
+.pause-offscreen:not([data-inview]) * {
+  animation-play-state: paused !important;
+}
+
+/* Fades the left and right edges of a moving strip (Marquee). */
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+/* Dot pattern for decorations (colour = current text colour). */
+@utility bg-dots {
+  background-image: radial-gradient(currentColor 1.6px, transparent 1.8px);
+  background-size: 11px 11px;
+}
+
+/* Faint engineering grid on dark headers. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif font-semibold tracking-tight text-petrol;
+  }
+
+  /* Visible keyboard focus everywhere (accessibility). */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-coral-deep;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation: none !important;
+    }
+  }
+}
