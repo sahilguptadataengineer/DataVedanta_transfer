@@ -78,14 +78,6 @@ All text, prices and settings live in `src/data/`. Change a file there, push to 
 - Free demo: every Saturday, 7:00 PM (IST). Booking closes Tuesday 00:00 IST for that Saturday.
 - Every form has a consent checkbox linked to the Privacy Policy.
 
-## Pending items
-
-Values still to be filled in start with `PLACEHOLDER_` (search the project for it):
-
-- `src/data/razorpay-links.ts`: the 10 Razorpay Payment Page links. While a link is a placeholder,
-  "Enroll now" collects the student's details and continues on WhatsApp.
-- `src/data/site.ts`: phone number and business address (hidden on the site until filled in).
-- `src/data/testimonials.ts`: replace the sample testimonials with real ones (with the students' permission).
 
 ## Guides
 
